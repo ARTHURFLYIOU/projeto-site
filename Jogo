@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yu-Gi-Oh! Nexus - Digital Game</title>
+    <style>
+        :root { --main-gold: #d4af37; --bg-dark: #0a0a0a; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg-dark); color: white; overflow: hidden; }
+        
+        /* Telas */
+        .screen { display: none; height: 100vh; width: 100vw; flex-direction: column; align-items: center; justify-content: center; background: radial-gradient(circle, #1a1a1a 0%, #000 100%); }
+        .active { display: flex; }
+
+        /* Menu Principal */
+        .menu-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--main-gold); color: white; padding: 15px 40px; margin: 10px; cursor: pointer; width: 250px; transition: 0.3s; font-size: 1.2rem; }
+        .menu-btn:hover { background: var(--main-gold); color: black; box-shadow: 0 0 15px var(--main-gold); }
+
+        /* Tabuleiro de Duelo */
+        #game-board { background: url('https://img.freepik.com/free-photo/abstract-dark-background-with-blue-light-lines_53876-102559.jpg') center/cover; }
+        .duel-grid { display: grid; grid-template-columns: repeat(5, 80px); gap: 10px; margin: 20px; border: 2px solid rgba(255,215,0,0.3); padding: 15px; border-radius: 10px; }
+        .slot { width: 80px; height: 110px; border: 1px dashed #555; border-radius: 5px; background: rgba(0,0,0,0.5); }
+        .slot.hover { border-color: var(--main-gold); background: rgba(212, 175, 55, 0.2); }
+
+        /* Cartas */
+        .hand { position: absolute; bottom: 20px; display: flex; gap: 10px; }
+        .card { width: 80px; height: 110px; background: #8b4513; border: 2px solid #333; border-radius: 5px; cursor: grab; background-size: cover; position: relative; }
+        .card:active { cursor: grabbing; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+
+        /* Modais e UI */
+        .modal { background: rgba(0,0,0,0.9); border: 2px solid var(--main-gold); padding: 30px; border-radius: 15px; text-align: center; }
+        input { padding: 10px; margin: 10px; border-radius: 5px; border: none; }
+        .alert-box { position: fixed; top: 20px; right: 20px; background: var(--main-gold); color: black; padding: 15px; border-radius: 5px; display: none; animation: slideIn 0.5s; }
+
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="login-alert" class="alert-box">⚠️ Lembre-se de criar uma conta para salvar seu progresso!</div>
+
+    <section id="login-screen" class="screen active">
+        <div class="modal">
+            <h1 style="color:var(--main-gold)">YU-GI-OH! NEXUS</h1>
+            <input type="text" placeholder="Usuário" id="user"><br>
+            <input type="password" placeholder="Senha"><br>
+            <button class="menu-btn" onclick="goTo('main-menu')">Entrar</button>
